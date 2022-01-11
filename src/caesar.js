@@ -1,12 +1,22 @@
 /**
- * Project: Decoder Ring
- * Authors: Thinkful, Dylan Adams
- * Last Modified: 2022/01/09
- * Version: 1.00
+ * @author Thinkful
+ * @author Dylan Adams <dadams31@asu.edu>
+ * @version 1.00
  */
 
 const caesarModule = (function () {
-	// Entry point for caesarShift
+	
+	/**
+	 * Encode/decode a message using caesar shift method.
+	 * Each non-space lowercase alphabetic-only character in
+	 * the message is shifted up or down in the alphabet to produce
+	 * the result.
+	 * @param {string} input - the message to be encoded/decoded.
+	 * @param {number} shift - the number of steps to shift the characters.
+	 * @param {boolean} [encode=true] - true to encode, false to decode.
+	 * @returns {string|boolean} the decoded or encoded message OR
+	 * false on validation fail.
+	 */
 	function caesar(input, shift, encode = true) {
 
 		if (!shift || (typeof shift) !== 'number' || shift > 25 || shift < -25) {
@@ -18,8 +28,14 @@ const caesarModule = (function () {
 		
 	}
 
-	// Translate each letter of the input up or down in the 
-	// alphabet by "shift" number of letters
+	/**
+	 * Helper function to shift an input message up or down.
+	 * Does not validate message or shift amount.
+	 * @private
+	 * @param {string} input - the string of characters to be shifted.
+	 * @param {number} shift - the shift amount (can be pos/neg).
+	 * @returns {string} the shifted message
+	 */
 	function _translate(input, shift) {
 
 		input = input.toLowerCase();
@@ -28,12 +44,14 @@ const caesarModule = (function () {
 		for (let i = 0; i < input.length; ++i) {
 			let char = input.charCodeAt(i);
 
+			// character is a lowercase letter, elegible for shifting
 			if (char >= 97 && char <= 122) {
 				const zeroIndex = (char - 97 + shift);
 				const newCode = (((zeroIndex % 26) + 26) % 26) + 97;
 				cypher += String.fromCharCode(newCode)
 			}
 			
+			// character is a space, number, or special char, do not shift
 			else {
 				cypher += input[i];
 			}

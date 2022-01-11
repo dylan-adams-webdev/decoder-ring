@@ -1,13 +1,23 @@
 /**
- * Project: Decoder Ring
- * Authors: Thinkful, Dylan Adams
- * Last Modified: 2022/01/09
- * Version: 1.00
+ * @author Thinkful
+ * @author Dylan Adams <dadams31@asu.edu>
+ * @version 1.00
  */
 
 const substitutionModule = (function () {
-	// you can add any code you want within this function scope
-
+	/**
+	 * Encode/Decode a message using the substitution method.
+	 * Each non-space lowercase alphabetic-only character in the
+	 * message is substituted with the corresponding letter in the
+	 * given alphabet. Capital letters are transformed to lowercase
+	 * and the all characters in the substitute alphabet should be
+	 * unique and exactly 25 characters long.
+	 * @param {string} input - the message to be encoded/decoded.
+	 * @param {string} [alphabet=0] - the substitution alphabet.
+	 * @param {boolean} encode - true to encode, false to decode.
+	 * @returns {(string|boolean)} the encoded/decoded message or
+	 * false for validation fail.
+	 */
 	function substitution(input, alphabet = 0, encode = true) {
 		// validation
 		const correctLength = alphabet.length === 26;
@@ -16,9 +26,12 @@ const substitutionModule = (function () {
 		// substitution
 		input = input.toLowerCase();
 		const key = _getKey(alphabet, encode);
-		return [...input].map(letter => letter === " " ? " " : key[letter]).join("");
+		return [...input]
+			.map((letter) => (letter === " " ? " " : key[letter]))
+			.join("");
 	}
 
+	// helper for substitution()
 	function _getKey(alphabet, encoding) {
 		let key = {};
 		[...alphabet].forEach((letter, index) => {
@@ -31,6 +44,7 @@ const substitutionModule = (function () {
 		return key;
 	}
 
+	// helper for substitution()
 	function _isUnique(alphabet) {
 		for (let i = 0; i < alphabet.length - 1; ++i) {
 			for (let k = i + 1; k < alphabet.length; ++k) {
