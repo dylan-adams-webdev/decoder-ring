@@ -9,7 +9,9 @@ const caesarModule = (function () {
 	// Entry point for caesarShift
 	function caesar(input, shift, encode = true) {
 
-		if (shift === 0 || shift > 25 || shift < -25) return false;
+		if (!shift || (typeof shift) !== 'number' || shift > 25 || shift < -25) {
+			return false;
+		}
 		return encode
 			? _translate(input, shift)
 			: _translate(input, -shift);
