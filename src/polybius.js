@@ -7,12 +7,13 @@
 
 const polybiusModule = (function () {
 	function polybius(input, encode = true) {
-		return encode ? getEncoding(input) : getDecoding(input);
+		return encode ? _getEncoding(input) : _getDecoding(input);
 	}
 
-	function getEncoding(input) {
+	function _getEncoding(input) {
 		let cypher = "";
 		input = input.toLowerCase();
+
 		for (let i = 0; i < input.length; ++i) {
 			const char = input.charCodeAt(i);
 
@@ -36,26 +37,32 @@ const polybiusModule = (function () {
 		return cypher;
 	}
 
-	function getDecoding(input) {
+	function _getDecoding(input) {
 		if (input.split(" ").join("").length % 2 !== 0) {
 			return false;
 		}
+
+		// make it easy to process spaces by adding another space
+		// to each space so as to take it two characters, the same
+		// as the increment of i in the loop below
+		input = input.split(" ").join("  ");
 
 		let message = "";
 		for (let i = 0; i < input.length; i += 2) {
 			if (input[i] === " ") {
 				message += input[i];
-				i--;
-				continue;
-			}
-			else if (input[i + 1] === " ") {
 				continue;
 			}
 			const top = Number(input[i]);
 			const side = Number(input[i + 1]);
 			let charCode = ((side - 1) * 5) + top + 96;
-			if (charCode === 105 || charCode === 106) message += "(i/j)";
-			if (charCode >= 106) charCode++;
+			if (charCode === 105 || charCode === 106) {
+				message += "(i/j)";
+				continue;
+			}
+			else if (charCode >= 106) {
+				charCode++;
+			}
 			message += String.fromCharCode(charCode);
 		}
 		return message;
