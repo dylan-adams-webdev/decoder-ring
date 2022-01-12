@@ -15,9 +15,15 @@ describe("substitution", () => {
 	});
 
 	describe("encode", () => {
-		it("should correctly translates a given phrase", () => {
+		it("should correctly translate a given phrase", () => {
 			const actual = substitution("msg", "zyxwvutsrqponmlkjihgfedcba");
 			const expected = "nht";
+			expect(actual).to.equal(expected);
+		});
+
+		it("should correctly translate with special characters", () => {
+			const actual = substitution("msg", "!yxw$utsrq#on@lkj^&gf*dcba");
+			const expected = "n&t";
 			expect(actual).to.equal(expected);
 		});
 
