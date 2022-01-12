@@ -8,7 +8,7 @@ const polybiusModule = (function () {
 	 * Encode/Decode a message using polybius square method.
 	 * Each non-space lowercase alphabetic-only character in
 	 * the message is encoded as grid coordinates (i.e. "a" = "11").
-	 * @param {string} input - the message to be encoded/decoded.
+	 * @param {string} input - the message to be encoded/decoded (accepts only alphabetic characters, converts all to lowercase).
 	 * @param {boolean} [encode=true] - true to encode, false to decode.
 	 * @returns {string} the result of encoding or decoding.
 	 */

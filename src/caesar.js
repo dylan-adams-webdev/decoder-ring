@@ -12,7 +12,7 @@ const caesarModule = (function () {
 	 * the message is shifted up or down in the alphabet to produce
 	 * the result.
 	 * @param {string} input - the message to be encoded/decoded.
-	 * @param {number} shift - the number of steps to shift the characters.
+	 * @param {number} shift - the number of steps to shift the characters (accepts alphabetic characters, converts to lowercase).
 	 * @param {boolean} [encode=true] - true to encode, false to decode.
 	 * @returns {string|boolean} the decoded or encoded message OR
 	 * false on validation fail.
